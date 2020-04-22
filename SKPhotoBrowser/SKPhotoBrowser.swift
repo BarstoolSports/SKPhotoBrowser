@@ -273,6 +273,10 @@ public extension SKPhotoBrowser {
     func updateDeleteButton(_ image: UIImage, size: CGSize? = nil) {
         actionView.updateDeleteButton(image: image, size: size)
     }
+    
+    func updatePaginationLabel(_ text: String) {
+        paginationView.counterLabel?.text = text
+    }
 }
 
 // MARK: - Public Function For Browser Control
@@ -363,6 +367,15 @@ public extension SKPhotoBrowser {
         self.photos.insert(contentsOf: photos, at: index)
         self.reloadData()
     }
+    
+    func enableZoomAtIndex(_ index: Int, enabled: Bool) {
+        guard let page = pageDisplayedAtIndex(index) else { return }
+        page.enableZoom = enabled
+    }
+    
+    func pageDisplayedAtIndex(_ index: Int) -> SKZoomingScrollView? {
+        return pagingScrollView.pageDisplayedAtIndex(index)
+    }
 }
 
 // MARK: - Internal Function
@@ -370,10 +383,6 @@ public extension SKPhotoBrowser {
 internal extension SKPhotoBrowser {
     func showButtons() {
         actionView.animate(hidden: false)
-    }
-    
-    func pageDisplayedAtIndex(_ index: Int) -> SKZoomingScrollView? {
-        return pagingScrollView.pageDisplayedAtIndex(index)
     }
     
     func getImageFromView(_ sender: UIView) -> UIImage {

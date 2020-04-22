@@ -23,6 +23,8 @@ open class SKZoomingScrollView: UIScrollView {
         }
     }
     
+    var enableZoom = true
+    
     fileprivate weak var browser: SKPhotoBrowser?
     
     fileprivate(set) var imageView: SKDetectingImageView!
@@ -250,7 +252,7 @@ open class SKZoomingScrollView: UIScrollView {
 
 extension SKZoomingScrollView: UIScrollViewDelegate {
     public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return imageView
+        return enableZoom ? imageView : nil
     }
     
     public func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
